@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import project.crud.dto.UserDTO;
 
 @Entity
 @Table(name = "user_tab")
@@ -37,5 +38,15 @@ public class User {
 
     @Embedded
     private Phone phoneNumber;
+
+    public User(UserDTO userDTO){
+        this.id = userDTO.id();
+        this.username = userDTO.username();
+        this.firstName = userDTO.firstName();
+        this.lastName = userDTO.lastName();
+        this.phoneNumber = userDTO.phoneNumber();
+        this.email = userDTO.email();
+        this.password = userDTO.password();
+    }
 
 }

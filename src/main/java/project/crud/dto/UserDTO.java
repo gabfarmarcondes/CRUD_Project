@@ -1,39 +1,31 @@
 package project.crud.dto;
 
-
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.UniqueElements;
 import project.crud.model.Phone;
 
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-public class UserDTO{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public record UserDTO(
+  Long id,
 
-    @Column(unique = true, nullable = false)
-    private String username;
+  @NotBlank
+  String username,
 
-    @Column(unique = true, nullable = false)
-    private String firstName;
+  @NotBlank
+  String firstName,
 
-    @Column(unique = true, nullable = false)
-    private String lastName;
+  @NotBlank
+  String lastName,
 
-    @Column(unique = true, nullable = false)
-    private String password;
+  @NotBlank
+  @UniqueElements
+  String email,
 
-    @Email
-    @Column(unique = true, nullable = false)
-    private String email;
+  @UniqueElements
+  @NotBlank
+  String password,
 
-    @Embedded
-    private Phone phoneNumber;
-}
+  @NotNull
+  Phone phoneNumber
+)
+{ }
