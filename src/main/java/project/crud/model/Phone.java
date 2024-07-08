@@ -1,5 +1,6 @@
 package project.crud.model;
 
+import jakarta.persistence.Embeddable;
 import lombok.*;
 
 @Getter
@@ -7,10 +8,10 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-
+@Embeddable
 public class Phone {
-    private int DDI;
-    private int DDD;
-    private String number;
+    private int ddi;
+    private int ddd;
+    private int number;
 
 }

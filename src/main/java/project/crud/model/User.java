@@ -11,8 +11,7 @@ import project.crud.dto.UserDTO;
 import java.util.Collection;
 import java.util.List;
 
-@Entity
-@Table(name = "user_tab")
+@Entity(name = "user")
 @Setter
 @Getter
 @AllArgsConstructor
@@ -27,13 +26,13 @@ public class User implements UserDetails {
     @Column(unique = true, nullable = false)
     private String username;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String firstName;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String lastName;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String password;
 
     @Email
