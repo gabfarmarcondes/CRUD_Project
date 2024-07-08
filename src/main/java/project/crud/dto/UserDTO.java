@@ -1,4 +1,39 @@
 package project.crud.dto;
 
-public class UserDTO {
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import project.crud.model.Phone;
+
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserDTO{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true, nullable = false)
+    private String username;
+
+    @Column(unique = true, nullable = false)
+    private String firstName;
+
+    @Column(unique = true, nullable = false)
+    private String lastName;
+
+    @Column(unique = true, nullable = false)
+    private String password;
+
+    @Email
+    @Column(unique = true, nullable = false)
+    private String email;
+
+    @Embedded
+    private Phone phoneNumber;
 }
