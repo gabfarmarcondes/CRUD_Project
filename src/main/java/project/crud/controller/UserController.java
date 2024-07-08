@@ -6,21 +6,25 @@ import org.springframework.web.bind.annotation.*;
 import project.crud.model.User;
 import project.crud.services.UserServices;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserServices userServices;
 
     @GetMapping("/findAll")
-    public ResponseEntity getAllUsers() {
-        return ResponseEntity.ok(getAllUsers());
+    public ResponseEntity <List<User>> getAllUsers() {
+        return userServices.getAllUsers();
     }
 
     @PostMapping("/create")
-    public ResponseEntity createUser(@RequestBody User user) {
-        return ResponseEntity.ok(userServices.createUser(user));
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        return userServices.createUser(user);
     }
+
+
 
 }

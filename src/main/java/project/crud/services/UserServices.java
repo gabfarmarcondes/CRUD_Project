@@ -1,6 +1,7 @@
 package project.crud.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import project.crud.model.User;
@@ -16,18 +17,23 @@ public class UserServices {
     private UserRepository userRepository;
 
     //GET
-    public void getAllUsers() {
+    public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userRepository.findAll();
         if (users.isEmpty()) {
-            ResponseEntity.noContent().build();
+            return ResponseEntity.noContent().build();
         } else {
-            ResponseEntity.ok(users);
+             return ResponseEntity.ok(users);
         }
     }
+
     //POST
     public ResponseEntity<User> createUser(User user) {
-        userRepository.save(user);
-        return ResponseEntity.ok(user);
+        try {
+            User userSaved = userRepository.save(user);
+            return ResponseEntity.status(HttpStatus.CREATED).body(userSaved);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
     //PUT
     //DELETE
