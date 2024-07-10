@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import project.crud.model.User;
 import project.crud.repository.UserRepository;
 
@@ -36,5 +37,16 @@ public class UserServices {
         }
     }
     //PUT
+    public ResponseEntity<User> updateUser(@PathVariable Long id, User user) {
+        User userUpdate = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        userUpdate.setUsername(user.getUsername());
+        userUpdate.setPassword(user.getPassword());
+        userUpdate.setEmail(user.getEmail());
+        userUpdate.setFirstName(user.getFirstName());
+        userUpdate.setLastName(user.getLastName());
+        userUpdate.setUserRole(user.getUserRole());
+        userRepository.save(userUpdate);
+        return ResponseEntity.ok(userUpdate);
+    }
     //DELETE
     }

@@ -25,6 +25,10 @@ public class UserController {
         return userServices.createUser(user);
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable Long id) {
+        return userServices.updateUser(id, user);
+    }
 
 
 }
