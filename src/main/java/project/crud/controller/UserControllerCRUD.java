@@ -20,6 +20,11 @@ public class UserControllerCRUD {
         return userServices.getAllUsers();
     }
 
+    @GetMapping("/find/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        return userServices.getUserById(id);
+    }
+
     @PostMapping("/create")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         return userServices.createUser(user);
