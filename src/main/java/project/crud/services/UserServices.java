@@ -30,13 +30,8 @@ public class UserServices {
 
     public ResponseEntity<User> getUserById(Long id) {
         Optional<User> users = userRepository.findById(id);
-        if (users.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(users.get());
-        }
+        return users.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
     }
-
     //POST
     public ResponseEntity<User> createUser(User user) {
         try {
