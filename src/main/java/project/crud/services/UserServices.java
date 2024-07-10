@@ -9,6 +9,7 @@ import project.crud.model.User;
 import project.crud.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -24,6 +25,15 @@ public class UserServices {
             return ResponseEntity.noContent().build();
         } else {
              return ResponseEntity.ok(users);
+        }
+    }
+
+    public ResponseEntity<User> getUserById(Long id) {
+        Optional<User> users = userRepository.findById(id);
+        if (users.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(users.get());
         }
     }
 
