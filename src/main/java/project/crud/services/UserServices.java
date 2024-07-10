@@ -49,4 +49,9 @@ public class UserServices {
         return ResponseEntity.ok(userUpdate);
     }
     //DELETE
+    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
+        User userDelete = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        userRepository.delete(userDelete);
+        return ResponseEntity.ok(userDelete);
     }
+}
