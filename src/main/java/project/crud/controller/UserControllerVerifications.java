@@ -3,7 +3,6 @@ package project.crud.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,16 +10,25 @@ import org.springframework.web.bind.annotation.RestController;
 import project.crud.services.VerificationsServices;
 
 @RestController
-@RequestMapping("/user/verification")
+@RequestMapping("/users/check")
 public class UserControllerVerifications {
 
     @Autowired
     private VerificationsServices verificationsServices;
 
-    @GetMapping("{id}")
-    public ResponseEntity<User> existId(@PathVariable Long id) {
-        verificationsServices.existsUserById(id);
-        return ResponseEntity.ok().build();
+    @GetMapping("/id/{id}")
+    public ResponseEntity<String> existId(@PathVariable Long id) {
+        return verificationsServices.existsUserById(id);
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<String> existEmail(@PathVariable String email) {
+        return verificationsServices.existsUserByEmail(email);
+    }
+
+    @GetMapping("/username/{username}")
+    public ResponseEntity<String> existUsername(@PathVariable String username) {
+        return verificationsServices.existsUserByUsername(username);
     }
 
 }
