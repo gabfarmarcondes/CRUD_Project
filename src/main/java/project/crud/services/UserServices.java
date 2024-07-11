@@ -49,7 +49,6 @@ public class UserServices {
         userUpdate.setEmail(user.getEmail());
         userUpdate.setFirstName(user.getFirstName());
         userUpdate.setLastName(user.getLastName());
-        userUpdate.setUserRole(user.getUserRole());
         userRepository.save(userUpdate);
         return ResponseEntity.ok(userUpdate);
     }

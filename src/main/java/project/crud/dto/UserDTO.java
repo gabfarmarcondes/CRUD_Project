@@ -27,5 +27,7 @@ public record UserDTO(
 
   @NotNull
   Phone phoneNumber
+
 )
-{ }
+{
+}
