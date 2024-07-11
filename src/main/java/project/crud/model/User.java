@@ -34,6 +34,9 @@ public class User{
     @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(unique = true, nullable = false)
+    private String cpf;
+
     @Embedded
     private Phone phoneNumber;
 
@@ -43,6 +46,7 @@ public class User{
         this.firstName = userDTO.firstName();
         this.lastName = userDTO.lastName();
         this.phoneNumber = userDTO.phoneNumber();
+        this.cpf = userDTO.cpf();
         this.email = userDTO.email();
         this.password = userDTO.password();
     }

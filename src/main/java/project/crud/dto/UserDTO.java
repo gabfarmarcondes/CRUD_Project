@@ -25,6 +25,8 @@ public record UserDTO(
   @NotBlank
   String password,
 
+  String cpf,
+
   @NotNull
   Phone phoneNumber
 

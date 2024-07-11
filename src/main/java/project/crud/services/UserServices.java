@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import project.crud.model.User;
 import project.crud.repository.UserRepository;
 
@@ -17,6 +18,9 @@ public class UserServices {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CpfValidationService cpfValidationService;
 
     //GET
     public ResponseEntity<List<User>> getAllUsers() {
@@ -33,7 +37,12 @@ public class UserServices {
         return users.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
     }
     //POST
-    public ResponseEntity<User> createUser(User user) {
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+
+        if(!cpfValidationService.validateCpf(user.getCpf())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(user);
+        }
+
         try {
             User userSaved = userRepository.save(user);
             return ResponseEntity.status(HttpStatus.CREATED).body(userSaved);

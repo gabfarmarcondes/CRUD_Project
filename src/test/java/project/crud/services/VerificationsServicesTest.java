@@ -32,6 +32,7 @@ class VerificationsServicesTest {
                 "last name",
                 "password",
                 "test@example.com",
+                "49353637899",
                 new Phone(55,11,941693341));
 
         when(userServices.getUserById(1L)).thenAnswer(invocationOnMock -> user);
