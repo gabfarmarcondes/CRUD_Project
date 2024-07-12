@@ -31,9 +31,7 @@ public class UserControllerCRUD {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable Long id) {
-        return userServices.updateUser(id, user);
-    }
+    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable Long id) {return userServices.updateUser(id, user);}
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable Long id) {
