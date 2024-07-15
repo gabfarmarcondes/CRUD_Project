@@ -15,16 +15,16 @@ public class UserControllerCRUD {
     @Autowired
     private UserServices userServices;
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/findAll")
-    public ResponseEntity <List<User>> getAllUsers() {
-        return userServices.getAllUsers();
-    }
+    public ResponseEntity <List<User>> getAllUsers() {return userServices.getAllUsers();}
 
     @GetMapping("/find/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         return userServices.getUserById(id);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/create")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         return userServices.createUser(user);

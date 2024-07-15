@@ -5,13 +5,14 @@ import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Embeddable
 public class Phone {
     private int ddi;
     private int ddd;
-    private int number;
+    private String phoneNumber;
+
 
 }
