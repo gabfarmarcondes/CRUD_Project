@@ -10,8 +10,8 @@ import lombok.*;
 @ToString
 @Embeddable
 public class Phone {
-    private int ddi;
-    private int ddd;
+    private String ddi;
+    private String ddd;
     private String phoneNumber;
 
 
