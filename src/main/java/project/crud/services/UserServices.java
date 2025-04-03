@@ -18,10 +18,6 @@ public class UserServices {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private CpfValidationService cpfValidationService;
-
     //GET
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userRepository.findAll();
@@ -38,11 +34,6 @@ public class UserServices {
     }
     //POST
     public ResponseEntity<User> createUser(@RequestBody User user) {
-
-        if(!cpfValidationService.validateCpf(user.getCpf())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(user);
-        }
-
         try {
             User userSaved = userRepository.save(user);
             return ResponseEntity.status(HttpStatus.CREATED).body(userSaved);
