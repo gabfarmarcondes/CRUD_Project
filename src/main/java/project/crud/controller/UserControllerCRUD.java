@@ -1,5 +1,6 @@
 package project.crud.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,12 +27,12 @@ public class UserControllerCRUD {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/create")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         return userServices.createUser(user);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable Long id) {return userServices.updateUser(id, user);}
+    public ResponseEntity<User> updateUser(@Valid @RequestBody User user, @PathVariable Long id) {return userServices.updateUser(id, user);}
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable Long id) {

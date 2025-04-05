@@ -1,9 +1,13 @@
 package project.crud.services;
 
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import project.crud.model.User;
@@ -18,32 +22,40 @@ public class UserServices {
 
     @Autowired
     private UserRepository userRepository;
-    //GET
+
+    @Transactional
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userRepository.findAll();
-        if (users.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        } else {
-             return ResponseEntity.ok(users);
-        }
+        return users.isEmpty()
+                ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
+                : new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    @Transactional
     public ResponseEntity<User> getUserById(Long id) {
         Optional<User> users = userRepository.findById(id);
-        return users.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
+        return users.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
-    //POST
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+
+    @Transactional
+    public ResponseEntity<User> createUser(User user) {
         try {
             User userSaved = userRepository.save(user);
             return ResponseEntity.status(HttpStatus.CREATED).body(userSaved);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+        } catch (ConstraintViolationException e) {
+            return ResponseEntity.badRequest().body(null);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
-    //PUT
-    public ResponseEntity<User> updateUser(@PathVariable Long id, User user) {
-        User userUpdate = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+
+    @Transactional
+    public ResponseEntity<User> updateUser(Long id, User user) {
+        User userUpdate = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
         userUpdate.setUsername(user.getUsername());
         userUpdate.setPassword(user.getPassword());
         userUpdate.setEmail(user.getEmail());
@@ -52,10 +64,12 @@ public class UserServices {
         userRepository.save(userUpdate);
         return ResponseEntity.ok(userUpdate);
     }
-    //DELETE
-    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
-        User userDelete = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+
+    @Transactional
+    public ResponseEntity<User> deleteUser(Long id) {
+        User userDelete = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
         userRepository.delete(userDelete);
-        return ResponseEntity.ok(userDelete);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

@@ -48,8 +48,6 @@ public class User{
     private String cpf;
 
     @Embedded
-    @Column(name = "user_phone", unique = true, nullable = false)
-    @NotBlank(message = "Users phone can not be blank")
     private Phone phoneNumber;
 
     public User(UserDTO userDTO){

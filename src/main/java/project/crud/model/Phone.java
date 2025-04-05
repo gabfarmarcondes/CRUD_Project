@@ -6,6 +6,6 @@ import jakarta.persistence.Embeddable;
 public record Phone(
         String ddi,
         String ddd,
-        String phoneNumber
+        String number
 )
 { }
