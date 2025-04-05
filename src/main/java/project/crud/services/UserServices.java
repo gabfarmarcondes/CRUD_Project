@@ -1,15 +1,12 @@
 package project.crud.services;
 
 import jakarta.validation.ConstraintViolationException;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import project.crud.model.User;
 import project.crud.repository.UserRepository;
 
@@ -20,8 +17,12 @@ import java.util.Optional;
 @Service
 public class UserServices {
 
+    private final UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
+    public UserServices(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Transactional
     public ResponseEntity<List<User>> getAllUsers() {
