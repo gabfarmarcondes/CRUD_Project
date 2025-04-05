@@ -13,10 +13,13 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserControllerCRUD {
 
-    @Autowired
-    private UserServices userServices;
+    private final UserServices userServices;
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @Autowired
+    public UserControllerCRUD(UserServices userServices) {
+        this.userServices = userServices;
+    }
+
     @GetMapping("/findAll")
     public ResponseEntity <List<User>> getAllUsers() {return userServices.getAllUsers();}
 
@@ -25,11 +28,8 @@ public class UserControllerCRUD {
         return userServices.getUserById(id);
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/create")
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
-        return userServices.createUser(user);
-    }
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {return userServices.createUser(user);}
 
     @PutMapping("/update/{id}")
     public ResponseEntity<User> updateUser(@Valid @RequestBody User user, @PathVariable Long id) {return userServices.updateUser(id, user);}

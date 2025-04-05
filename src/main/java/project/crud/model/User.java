@@ -5,7 +5,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
-import project.crud.dto.UserDTO;
 
 
 @Entity
@@ -49,16 +48,5 @@ public class User{
 
     @Embedded
     private Phone phoneNumber;
-
-    public User(UserDTO userDTO){
-        this.id = userDTO.id();
-        this.username = userDTO.username();
-        this.firstName = userDTO.firstName();
-        this.lastName = userDTO.lastName();
-        this.email = userDTO.email();
-        this.password = userDTO.password();
-        this.cpf = userDTO.cpf();
-        this.phoneNumber = userDTO.phoneNumber();
-    }
 
 }
