@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import project.crud.config.ResponseWrapper;
+import project.crud.dto.UserDTO;
 import project.crud.model.User;
 import project.crud.services.UserServices;
 
@@ -29,7 +31,7 @@ public class UserControllerCRUD {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {return userServices.createUser(user);}
+    public ResponseEntity<ResponseWrapper<UserDTO>> createUser(@RequestBody @Valid UserDTO userDTO) {return userServices.createUser(userDTO);}
 
     @PutMapping("/update/{id}")
     public ResponseEntity<User> updateUser(@Valid @RequestBody User user, @PathVariable Long id) {return userServices.updateUser(id, user);}
