@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 
 @Entity
-@Table(name = "users")
+@Table(name = "users_table")
 @Setter
 @Getter
 @AllArgsConstructor
@@ -21,29 +21,21 @@ public class User{
     private Long id;
 
     @Column(name = "username", unique = true, nullable = false, length = 20)
-    @NotBlank(message = "User's username can not be blank")
     private String username;
 
     @Column(name = "firstName", nullable = false, length = 50)
-    @NotBlank(message = "User's first name can not be blank")
     private String firstName;
 
     @Column(name = "lastName", nullable = false, length = 50)
-    @NotBlank(message = "User's last name can not be blank")
     private String lastName;
 
-    @Email(message = "Invalid E-mail")
-    @Column(name = "user_email", unique = true, nullable = false)
-    @NotBlank(message = "User's e-mail can not be blank")
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "user_password", nullable = false)
-    @NotBlank(message = "User's password can not be blank")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @CPF(message = "Invalid CPF")
-    @Column(name = "user_cpf", unique = true, nullable = false)
-    @NotBlank(message = "User's CPF can not be blank")
+    @Column(name = "cpf", unique = true, nullable = false)
     private String cpf;
 
     @Embedded
